@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Share, DUBKI</title>
 </head>
 <body>
 
-<h1>Share, Dubki!</h1>
+<h1>Share, Dubki! | <a href="/login">Sign in</a></h1>
 <h4>Goods from all Dubki students</h4>
+<form action="/logout" method = "post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+    <input type="submit" value="Log out"/>
+</form>
 <form action="/" method="get">
     Find advert by its title: <input type="text" name="title"><br>
     <input type="submit" value="search">
