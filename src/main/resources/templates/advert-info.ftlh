@@ -17,13 +17,14 @@
 <b>Good description: </b>${advert.description}<br>
 <b>Price: </b>${advert.price}<br>
 <b>Corpus: </b>${advert.corpus}<br>
-<b>Author name: </b>${advert.authorName}<br>
+<b>User: </b>${advert.user.name}<br>
+<b>Phone number: </b>${advert.user.phoneNumber}<br>
 
-<hr>
+<#--<hr>-->
 
-<form action="/advert/delete/${advert.id}" method="post">
-    <input type="submit" value="Delete good"/>
-</form>
+<#--<form action="/advert/delete/${advert.id}" method="post">-->
+<#--    <input type="submit" value="Delete good"/>-->
+<#--</form>-->
 
 </body>
 </html>

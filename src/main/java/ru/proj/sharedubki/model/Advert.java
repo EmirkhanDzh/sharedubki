@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -38,8 +39,6 @@ public class Advert {
     private int price;
     @Column(name="corpus")
     private int corpus;
-    @Column(name="authorName")
-    private String authorName;
     @Column(name="description", columnDefinition = "text")
     private String description;
     // private LocalDateTime createDate;
@@ -47,6 +46,9 @@ public class Advert {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "advert")
     private List<Image> images = new ArrayList<>();
     private Long previewImageId;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
+    private User user;
     private LocalDateTime createdDate;
 
     @PrePersist

@@ -12,6 +12,7 @@ import ru.proj.sharedubki.model.Advert;
 import ru.proj.sharedubki.service.AdvertService;
 
 import java.io.IOException;
+import java.security.Principal;
 
 
 @Controller
@@ -24,8 +25,9 @@ public class AdvertController {
     }
 
     @GetMapping("/")
-    public String adverts(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String adverts(@RequestParam(name = "title", required = false) String title, Principal principal, Model model) {
 
+        model.addAttribute("user", advertService.getUserByPrincipal(principal));
         model.addAttribute("adverts", advertService.getAdverts(title));
         return "adverts";
     }
@@ -41,14 +43,15 @@ public class AdvertController {
     }
 
 
-    // !ToDo? почему в requestparam везде file1. Solved.
+    // ToDo? почему в requestparam везде file1. Solved.
     @PostMapping("/advert/create")
     public String createAdvert(@RequestParam("file1") MultipartFile file1,
                                @RequestParam("file2") MultipartFile file2,
                                @RequestParam("file3") MultipartFile file3,
-                               Advert advert) throws IOException {
+                               Advert advert,
+                               Principal principal) throws IOException {
         System.err.println(advert);
-        advertService.saveAdvert(advert, file1, file2, file3);
+        advertService.saveAdvert(advert, principal, file1, file2, file3);
         return "redirect:/";
     }
 

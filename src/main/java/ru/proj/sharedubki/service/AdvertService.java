@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.proj.sharedubki.model.Advert;
 import ru.proj.sharedubki.model.Image;
+import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.AdvertRepository;
+import ru.proj.sharedubki.repository.UserRepository;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -17,9 +20,11 @@ public class AdvertService {
     final int numOfImages = 3;
 
     private final AdvertRepository advertRepository;
+    private final UserRepository userRepository;
 
-    public AdvertService(AdvertRepository advertRepository) {
+    public AdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
         this.advertRepository = advertRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Advert> getAdverts(String title) {
@@ -29,7 +34,9 @@ public class AdvertService {
         return advertRepository.findAll();
     }
 
-    public void saveAdvert(Advert advert, MultipartFile... file) throws IOException {
+    public void saveAdvert(Advert advert, Principal principal, MultipartFile... file) throws IOException {
+
+        advert.setUser(getUserByPrincipal(principal));
 
         Image[] images = new Image[3];
         for(int i = 0; i < numOfImages; ++i) {
@@ -42,12 +49,19 @@ public class AdvertService {
                 advert.addImageToAdvert(images[i]);
             }
         }
-        log.info("saving new Advert with Title: {}; Author: {}", advert.getTitle(), advert.getAuthorName());
+        log.info("saving new Advert with Title: {}; User email: {}", advert.getTitle(), advert.getUser().getEmail());
         // ToDo один раз сохранить в БД
         Advert advertFromDb = advertRepository.save(advert);
         advertFromDb.setPreviewImageId(advertFromDb.getImages().get(0).getId());
         // ?
         advertRepository.save(advertFromDb);
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal != null)
+        return userRepository.findByEmail(principal.getName());
+        else
+            return new User();
     }
 
     private Image convertFileToImageEntity(MultipartFile file) throws IOException {

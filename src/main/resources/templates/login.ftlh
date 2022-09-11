@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Share, DUBKI</title>
+    <title>Share, DUBKI!</title>
 </head>
 <body>
 <h1>Share, Dubki!</h1>

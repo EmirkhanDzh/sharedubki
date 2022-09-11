@@ -3,6 +3,7 @@ package ru.proj.sharedubki.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.service.UserService;
@@ -30,6 +31,12 @@ public class UserController {
             return "registration";
         }
         return "redirect:/login";
+    }
+
+    @GetMapping("/user/{user}")
+    public String showUserProfile(@PathVariable("user") User user, Model model) {
+        model.addAttribute("user", user);
+        return "user-info";
     }
 
     @GetMapping("/hello")
