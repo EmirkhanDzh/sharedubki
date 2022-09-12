@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import ru.proj.sharedubki.model.Advert;
+import ru.proj.sharedubki.model.User;
+import ru.proj.sharedubki.repository.AdvertRepository;
 import ru.proj.sharedubki.service.AdvertService;
+import ru.proj.sharedubki.service.UserService;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -19,15 +22,20 @@ import java.security.Principal;
 public class AdvertController {
 
     private final AdvertService advertService;
+    private final UserService userService;
+    private final AdvertRepository advertRepository;
 
-    public AdvertController(AdvertService advertService) {
+
+    public AdvertController(AdvertService advertService, UserService userService, AdvertRepository advertRepository) {
         this.advertService = advertService;
+        this.userService = userService;
+        this.advertRepository = advertRepository;
     }
 
     @GetMapping("/")
     public String adverts(@RequestParam(name = "title", required = false) String title, Principal principal, Model model) {
 
-        model.addAttribute("user", advertService.getUserByPrincipal(principal));
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         model.addAttribute("adverts", advertService.getAdverts(title));
         return "adverts";
     }
@@ -56,9 +64,16 @@ public class AdvertController {
     }
 
     @PostMapping("/advert/delete/{id}")
-    public String deleteAdvert(@PathVariable Long id){
-        advertService.deleteAdvert(id);
+    public String deleteAdvert(@PathVariable Long id, Principal principal){
+        advertService.deleteAdvert(userService.getUserByPrincipal(principal), id);
         return "redirect:/";
     }
 
+    @GetMapping("/my/products")
+    public String showUserAdverts(Principal principal, Model model) {
+        User user = userService.getUserByPrincipal(principal);
+        model.addAttribute("user", user);
+        model.addAttribute("adverts", user.getAdverts());
+        return "user-adverts";
+    }
 }

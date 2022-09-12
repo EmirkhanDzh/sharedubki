@@ -19,10 +19,12 @@ public class AdvertService {
 
     final int numOfImages = 3;
 
+    private final UserService userService;
     private final AdvertRepository advertRepository;
     private final UserRepository userRepository;
 
-    public AdvertService(AdvertRepository advertRepository, UserRepository userRepository) {
+    public AdvertService(UserService userService, AdvertRepository advertRepository, UserRepository userRepository) {
+        this.userService = userService;
         this.advertRepository = advertRepository;
         this.userRepository = userRepository;
     }
@@ -36,7 +38,7 @@ public class AdvertService {
 
     public void saveAdvert(Advert advert, Principal principal, MultipartFile... file) throws IOException {
 
-        advert.setUser(getUserByPrincipal(principal));
+        advert.setUser(userService.getUserByPrincipal(principal));
 
         Image[] images = new Image[3];
         for(int i = 0; i < numOfImages; ++i) {
@@ -57,13 +59,6 @@ public class AdvertService {
         advertRepository.save(advertFromDb);
     }
 
-    public User getUserByPrincipal(Principal principal) {
-        if (principal != null)
-        return userRepository.findByEmail(principal.getName());
-        else
-            return new User();
-    }
-
     private Image convertFileToImageEntity(MultipartFile file) throws IOException {
         Image image = new Image();
         image.setName(file.getName());
@@ -74,10 +69,19 @@ public class AdvertService {
         return image;
     }
 
-    public void deleteAdvert(Long id) {
-
-        advertRepository.deleteById(id);
-    }
+    public void deleteAdvert(User user, Long id) {
+        Advert product = advertRepository.findById(id)
+                .orElse(null);
+        if (product != null) {
+            if (product.getUser().getId().equals(user.getId())) {
+                advertRepository.delete(product);
+                log.info("Advert with id = {} was deleted", id);
+            } else {
+                log.error("User: {} haven't this advert with id = {}", user.getEmail(), id);
+            }
+        } else {
+            log.error("Advert with id = {} is not found", id);
+        }    }
 
     public Advert getAdvertById(Long id) {
         return advertRepository.findById(id).orElse(null);

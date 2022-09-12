@@ -5,8 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.service.UserService;
+
+import java.security.Principal;
 
 @Controller
 public class UserController {
@@ -33,11 +36,22 @@ public class UserController {
         return "redirect:/login";
     }
 
+    @GetMapping("/profile")
+    public String showUserCockpit(Principal principal, Model model) {
+        User user = userService.getUserByPrincipal(principal);
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
     @GetMapping("/user/{user}")
     public String showUserProfile(@PathVariable("user") User user, Model model) {
+        System.err.println("user-info: " + user.getEmail() + " " + user.getEmail());
         model.addAttribute("user", user);
+        model.addAttribute("adverts", user.getAdverts());
         return "user-info";
     }
+
+
 
     @GetMapping("/hello")
     public String securityUrl() {

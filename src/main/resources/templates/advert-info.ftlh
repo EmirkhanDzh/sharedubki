@@ -17,7 +17,7 @@
 <b>Good description: </b>${advert.description}<br>
 <b>Price: </b>${advert.price}<br>
 <b>Corpus: </b>${advert.corpus}<br>
-<b>User: </b>${advert.user.name}<br>
+<b>User: </b><a href="/user/${advert.user.id}">${advert.user.name}</a><br>
 <b>Phone number: </b>${advert.user.phoneNumber}<br>
 
 <#--<hr>-->
