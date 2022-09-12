@@ -54,7 +54,10 @@ public class AdvertService {
         log.info("saving new Advert with Title: {}; User email: {}", advert.getTitle(), advert.getUser().getEmail());
         // ToDo один раз сохранить в БД
         Advert advertFromDb = advertRepository.save(advert);
-        advertFromDb.setPreviewImageId(advertFromDb.getImages().get(0).getId());
+        List<Image> imagesList = advertFromDb.getImages();
+        if(!imagesList.isEmpty()) {
+            advertFromDb.setPreviewImageId(imagesList.stream().findFirst().get().getId());
+        }
         // ?
         advertRepository.save(advertFromDb);
     }
