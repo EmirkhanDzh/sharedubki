@@ -73,11 +73,11 @@ public class AdvertService {
     }
 
     public void deleteAdvert(User user, Long id) {
-        Advert product = advertRepository.findById(id)
+        Advert advert = advertRepository.findById(id)
                 .orElse(null);
-        if (product != null) {
-            if (product.getUser().getId().equals(user.getId())) {
-                advertRepository.delete(product);
+        if (advert != null) {
+            if (advert.getUser().getId().equals(user.getId())) {
+                advertRepository.delete(advert);
                 log.info("Advert with id = {} was deleted", id);
             } else {
                 log.error("User: {} haven't this advert with id = {}", user.getEmail(), id);
@@ -88,5 +88,8 @@ public class AdvertService {
 
     public Advert getAdvertById(Long id) {
         return advertRepository.findById(id).orElse(null);
+    }
+
+    public void editAdvert() {
     }
 }

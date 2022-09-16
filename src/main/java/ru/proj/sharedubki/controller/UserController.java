@@ -17,12 +17,14 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "login";
     }
 
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         return "registration";
     }
 
@@ -44,19 +46,21 @@ public class UserController {
     }
 
     @GetMapping("/user/{user}")
-    public String showUserProfile(@PathVariable("user") User user, Model model) {
+    public String showUserProfile(@PathVariable("user") User user, Model model, Principal principal) {
         System.err.println("user-info: " + user.getEmail() + " " + user.getEmail());
         model.addAttribute("user", user);
         model.addAttribute("adverts", user.getAdverts());
+        model.addAttribute("user", user);
+        model.addAttribute("userByPrincipal", userService.getUserByPrincipal(principal));
         return "user-info";
     }
-
-
 
     @GetMapping("/hello")
     public String securityUrl() {
         return "hello";
     }
+
+
 
     public UserController(UserService userService) {
         this.userService = userService;

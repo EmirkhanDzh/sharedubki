@@ -16,6 +16,7 @@ import ru.proj.sharedubki.service.UserService;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 
 @Controller
@@ -33,20 +34,22 @@ public class AdvertController {
     }
 
     @GetMapping("/")
-    public String adverts(@RequestParam(name = "title", required = false) String title, Principal principal, Model model) {
-
-        model.addAttribute("user", userService.getUserByPrincipal(principal));
-        model.addAttribute("adverts", advertService.getAdverts(title));
+    public String adverts(@RequestParam(name = "searchWord", required = false) String searchWord, Principal principal, Model model) {
+        User user = userService.getUserByPrincipal(principal);
+        List<Advert> adverts = advertService.getAdverts(searchWord);
+        model.addAttribute("user", user);
+        model.addAttribute("adverts", adverts);
+        model.addAttribute("searchWord", searchWord);
         return "adverts";
     }
 
-    @GetMapping("advert/{id}")
-    public String advertInfo(@PathVariable Long id, Model model) {
+    @GetMapping("/advert/{id}")
+    public String advertInfo(@PathVariable Long id, Model model, Principal principal) {
         Advert advert = advertService.getAdvertById(id);
-
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
         model.addAttribute("advert", advert);
         model.addAttribute("images", advert.getImages());
-
+        model.addAttribute("authorAdvert", advert.getUser());
         return "advert-info";
     }
 
@@ -63,13 +66,20 @@ public class AdvertController {
         return "redirect:/";
     }
 
-    @PostMapping("/advert/delete/{id}")
+    @PostMapping("/advert/{id}/delete")
     public String deleteAdvert(@PathVariable Long id, Principal principal){
         advertService.deleteAdvert(userService.getUserByPrincipal(principal), id);
-        return "redirect:/";
+        return "redirect:/my/adverts";
     }
+//
+//    @PostMapping("/advert/{id}/edit/")
+//    public String editAdvert(@PathVariable Long id, Principal principal, Model model) {
+//        Advert advert = advertService.getAdvertById(id);
+//        advertService.editAdvert();
+//        return "redirect:/advert/{" + advert.getId() + "}";
+//    }
 
-    @GetMapping("/my/products")
+    @GetMapping("/my/adverts")
     public String showUserAdverts(Principal principal, Model model) {
         User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);

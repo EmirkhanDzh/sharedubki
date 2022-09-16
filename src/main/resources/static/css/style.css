@@ -1,0 +1,9 @@
+.advert:hover {
+    transition: 0.7s;
+    transform: scale(1.05);
+}
+
+.advert-link {
+    color:  #000 !important;
+    text-decoration: none;
+}

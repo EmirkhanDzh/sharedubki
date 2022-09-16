@@ -44,12 +44,9 @@ public class UserService {
     }
 
     public User getUserByPrincipal(Principal principal) {
-        if (principal != null)
-            return userRepository.findByEmail(principal.getName());
-        else
-            return new User();
+        if (principal == null) return new User();
+        return userRepository.findByEmail(principal.getName());
     }
-
 
     public void banUser(Long id) {
         User user = userRepository.findById(id).orElse(null);
