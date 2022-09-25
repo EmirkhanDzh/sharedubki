@@ -1,6 +1,6 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-    <h1 style="text-align: center">Мои товары</h1>
+    <h1 style="text-align: center">My adverts</h1>
     <hr>
     <a class="btn btn-dark mt-3 mb-3" style="text-align: center; width: 100%"
        data-toggle="collapse" href="#collapseExample" role="button"
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <div class="custom-file">
-                    <input required type="file" name="file1" id="file1">
+                    <input type="file" name="file1" id="file1">
                     <label class="custom-file-label" for="file1">First photo</label>
                 </div>
             </div>
@@ -73,12 +73,12 @@
                             </button>
                         </form>
 
-<#--                        <form action="/advert/${advert.id}/edit" method="post">-->
-<#--                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>-->
-<#--                            <button type="submit" class="btn btn-danger m-3">-->
-<#--                                Edit-->
-<#--                            </button>-->
-<#--                        </form>-->
+                        <form action="/advert/${advert.id}/edit" method="get">
+                            <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                            <button type="submit" class="btn btn-danger m-3">
+                                Edit
+                            </button>
+                        </form>
                     </div>
                     <#if advert.previewImageId??>
                         <img src="/images/${advert.previewImageId}"

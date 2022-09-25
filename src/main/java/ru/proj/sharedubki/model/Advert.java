@@ -43,7 +43,7 @@ public class Advert {
     private String description;
     // private LocalDateTime createDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "advert")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "advert")
     private List<Image> images = new ArrayList<>();
     private Long previewImageId;
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
@@ -59,5 +59,10 @@ public class Advert {
     public void addImageToAdvert(Image image) {
         image.setAdvert(this);
         images.add(image);
+    }
+
+    public String getStringPrice() {
+        String stringPrice = String.valueOf(price);
+        return stringPrice;
     }
 }

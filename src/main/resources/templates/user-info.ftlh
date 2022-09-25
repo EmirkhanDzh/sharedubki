@@ -44,7 +44,7 @@
     </div>
     <br>
     <hr>
-    <h1 style="text-align: center">User adverts ${user.name}</h1>
+    <h1 style="text-align: center">${user.name} user's adverts </h1>
     <br>
     <div class="card-columns">
         <#list adverts as advert>

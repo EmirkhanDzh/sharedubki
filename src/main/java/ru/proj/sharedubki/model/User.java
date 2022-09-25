@@ -59,7 +59,7 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
     private LocalDateTime createdDate;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Advert> adverts = new ArrayList<>();
 
     @PrePersist
