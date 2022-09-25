@@ -12,6 +12,7 @@ import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.service.AdvertService;
 import ru.proj.sharedubki.service.UserService;
 
+import javax.annotation.PostConstruct;
 import java.security.Principal;
 import java.util.Map;
 
@@ -40,15 +41,24 @@ public class AdminController {
 
     @GetMapping("/admin/user/{user-id}/edit")
     public String showUserEdit(@PathVariable("user-id") User user, Model model, Principal principal){
-        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        model.addAttribute("user", user);
+//        model.addAttribute("superAdmin", userService.getUserByPrincipal(principal));
         model.addAttribute("roles", Role.values());
-        return "user-edit";
+        return "admin-user-role-edit";
     }
 
     @PostMapping("/admin/user/edit")
-    public String editUser(@RequestParam("userId") User user, @RequestParam Map<String, String> form) {
-        userService.changeUserRoles(user, form);
+    public String editUser(@RequestParam("user-id") Long userId, @RequestParam Map<String, String> form) {
+        User user = userService.getUserById(userId);
+        if(user != null) {
+            userService.changeUserRoles(user, form);
+        }
         return "redirect:/admin";
+    }
+
+    @PostConstruct
+    public void createSuperAdmin() {
+        userService.createSuperAdmin();
     }
 
 }

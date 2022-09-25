@@ -1,6 +1,6 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
-    <h1 style="text-align: center">User cockpit</h1>
+    <h1 style="text-align: center">User personal page</h1>
     <hr>
     <br>
     <div style="text-align: center">

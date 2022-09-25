@@ -1,7 +1,6 @@
 package ru.proj.sharedubki.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.proj.sharedubki.model.Advert;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -35,7 +35,20 @@ public class AdvertService {
         this.userRepository = userRepository;
     }
 
-    public List<Advert> getAdverts(String title) {
+    public List<Advert> getAdvertsByTitleAndDescription(String searchWord) {
+        List<Advert> adverts = advertRepository.findAll();
+        if(searchWord != null) {
+            String searchWordTrimmed = searchWord.trim().toLowerCase();
+            if (!searchWordTrimmed.isEmpty() && !searchWordTrimmed.isBlank()) {
+                adverts.removeIf(ad -> !ad.getTitle().toLowerCase(Locale.ROOT).contains(searchWordTrimmed.trim()) && !ad.getDescription().toLowerCase().contains(searchWordTrimmed));
+                return adverts;
+            }
+        }
+        return adverts;
+    }
+
+
+    public List<Advert> getAdvertsByCategory(String title) {
         if (title != null) {
             return advertRepository.findByTitle(title);
         }
@@ -55,7 +68,6 @@ public class AdvertService {
         if (!imagesList.isEmpty()) {
             advertFromDb.setPreviewImageId(imagesList.stream().findFirst().get().getId());
         }
-        // ?
         advertRepository.save(advertFromDb);
     }
 
@@ -129,6 +141,9 @@ public class AdvertService {
                 if (!advertById.getDescription().equals(advertFromUser.getDescription())) {
                     advertById.setDescription(advertFromUser.getDescription());
                 }
+                /*if (!advertById.getType().equals(advertFromUser.getType())) {
+                    advertById.setType(advertFromUser.getType());
+                }*/
 
                 updateImagesInExistentAdvert(advertById, files);
 

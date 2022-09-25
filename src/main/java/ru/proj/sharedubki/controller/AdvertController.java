@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import ru.proj.sharedubki.enums.AdvertType;
 import ru.proj.sharedubki.model.Advert;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.AdvertRepository;
-import ru.proj.sharedubki.repository.UserRepository;
 import ru.proj.sharedubki.service.AdvertService;
 import ru.proj.sharedubki.service.UserService;
 
@@ -37,7 +37,7 @@ public class AdvertController {
     @GetMapping("/")
     public String adverts(@RequestParam(name = "searchWord", required = false) String searchWord, Principal principal, Model model) {
         User user = userService.getUserByPrincipal(principal);
-        List<Advert> adverts = advertService.getAdverts(searchWord);
+        List<Advert> adverts = advertService.getAdvertsByTitleAndDescription(searchWord);
         model.addAttribute("user", user);
         model.addAttribute("adverts", adverts);
         model.addAttribute("searchWord", searchWord);

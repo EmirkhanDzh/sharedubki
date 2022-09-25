@@ -8,7 +8,7 @@
             <div class="form-group col-md-2">
                 <label for="searchCity">Corpus</label>
                 <select id="searchCity" class="form-control">
-                    <option value="">Corpus's not selected</option>
+                    <option value="">Select corpus</option>
                     <option value=1>Первый</option>
                     <option value=2>Второй</option>
                     <option value=3>Третий</option>

@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="corpus">corpus</label>
                 <select id="corpus" required name="corpus" class="form-control">
-                    <option value="">Corpus isn't selected</option>
+                    <option value="">Select corpus</option>
 
                     <option value=1>First</option>
                     <option value=2>Second</option>

@@ -1,6 +1,8 @@
 package ru.proj.sharedubki.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -32,6 +34,8 @@ import ru.proj.sharedubki.enums.Role;
 @Entity
 @Table(name = "users")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,6 +69,13 @@ public class User implements UserDetails {
     @PrePersist
     private void init() {
         createdDate = LocalDateTime.now();
+    }
+
+    public User(String email, String phoneNumber, String name, String password) {
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.name = name;
+        this.password = password;
     }
 
     // security

@@ -3,10 +3,16 @@ package ru.proj.sharedubki.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.proj.sharedubki.enums.AdvertType;
+import ru.proj.sharedubki.enums.Role;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,6 +25,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="adverts")
@@ -33,6 +40,14 @@ public class Advert {
     private Long id;
     @Column(name="type")
     private String type;
+
+  /*  @Column(name="type")
+    @ElementCollection(targetClass = AdvertType.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "type",
+            joinColumns = @JoinColumn(name = "advert_id"))
+    @Enumerated(EnumType.STRING)
+    private List<AdvertType> type;*/
+
     @Column(name="title")
     private String title;
     @Column(name="price")

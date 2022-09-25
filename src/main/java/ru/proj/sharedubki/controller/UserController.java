@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public String showUserCockpit(Principal principal, Model model) {
+    public String showUserPersonalPage(Principal principal, Model model) {
         User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);
         return "profile";
@@ -57,8 +57,6 @@ public class UserController {
     public String securityUrl() {
         return "hello";
     }
-
-
 
     public UserController(UserService userService) {
         this.userService = userService;
