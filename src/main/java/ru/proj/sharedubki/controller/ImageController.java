@@ -46,24 +46,13 @@ public class ImageController {
                 .body(new InputStreamResource(new ByteArrayInputStream(image.getBytesOfImage())));
     }
 
-    int i = 0;
-
     @PostMapping("/images/{id}/delete")
     private String deleteImage(@PathVariable Long id, @RequestParam Long advertId, Principal principal, Model model) {
         Advert advert = advertService.getAdvertById(advertId);
         User user = userService.getUserByPrincipal(principal);
-        if (principal != null && user.getId().equals(advert.getUser().getId())) {
-            Image image = imageService.getImageById(id);
-            if (image != null) {
-                if(image.isPreviewImage()) {
-                    advert.setPreviewImageId(null);
-                }
-                advert.getImages().removeIf(img -> Objects.equals(img.getId(), image.getId()));
-                imageRepository.deleteById(id);
-            }
-            return "redirect:/advert/"+advertId+"/edit";
+        if (imageService.deleteImageFromAdvert(id, advert, user)) {
+            return "redirect:/advert/" + advertId + "/edit";
         } else {
-
             return "redirect:/";
         }
     }
