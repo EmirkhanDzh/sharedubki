@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name="adverts")
+@Table(name = "adverts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,34 +36,35 @@ public class Advert {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    @Column(name="type")
+
+    @Column(name = "type")
     private String type;
 
-  /*  @Column(name="type")
-    @ElementCollection(targetClass = AdvertType.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "type",
-            joinColumns = @JoinColumn(name = "advert_id"))
-    @Enumerated(EnumType.STRING)
-    private List<AdvertType> type;*/
-
-    @Column(name="title")
+    @Column(name = "title")
     private String title;
-    @Column(name="price")
+
+    @Column(name = "price")
     private int price;
-    @Column(name="corpus")
+
+    @Column(name = "corpus")
     private int corpus;
-    @Column(name="description", columnDefinition = "text")
+
+    @Column(name = "description", columnDefinition = "text")
     private String description;
-    // private LocalDateTime createDate;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "advert")
     private List<Image> images = new ArrayList<>();
+
+    @Column(name = "preview_image_id")
     private Long previewImageId;
+
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
+
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
 
     @PrePersist

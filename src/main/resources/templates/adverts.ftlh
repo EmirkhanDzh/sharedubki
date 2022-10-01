@@ -1,21 +1,33 @@
 <#import "blocks/template.ftlh" as t>
 <@t.template user>
 
-    <h1 style="text-align: center">Search adverts</h1>
+    <h1 style="text-align: center">Adverts from all over DUBKI</h1>
     <hr>
     <form method="get" action="/">
         <div class="form-row">
             <div class="form-group col-md-2">
-                <label for="searchCity">Corpus</label>
-                <select id="searchCity" class="form-control">
-                    <option value="">Select corpus</option>
-                    <option value=1>Первый</option>
-                    <option value=2>Второй</option>
-                    <option value=3>Третий</option>
+                <label for="category">Category</label>
+                <select id="category" class="form-control" name = "category">
+                    <option value="">Select category</option>
+                    <option value="all">All</option>
+                    <option value="">Products and food</option>
+                    <option value="">Electronics</option>
+                    <option value="">Lost&Found</option>
+                    <option value="">Services</option>
+                    <option value="">Other</option>
                 </select>
             </div>
-            <div class="form-group col-md-10">
-                <label for="searchWord">find among adverts</label>
+            <div class="form-group col-md-2">
+                <label for="searchCorpus">Corpus</label>
+                <select id="searchCorpus" class="form-control" name = "searchCorpus">
+                    <option value="">Select corpus</option>
+                    <option value=1 <#if searchCorpus?? && searchCorpus == 1>selected</#if>>First</option>
+                    <option value=2 <#if searchCorpus?? && searchCorpus == 2>selected</#if>>Second</option>
+                    <option value=3 <#if searchCorpus?? && searchCorpus == 3>selected</#if>>Third</option>
+                </select>
+            </div>
+            <div class="form-group col-md-8">
+                <label for="searchWord">Find advert by key words</label>
                 <input type="text" name="searchWord" <#if searchWord??>value="${searchWord}"</#if> class="form-control"
                        id="searchWord">
             </div>
@@ -37,9 +49,9 @@
                            id="advertName" name="title">
                 </div>
                 <div class="form-group">
-                    <label for="price">Цена товара</label>
+                    <label for="price">Price</label>
                     <div class="input-group mb-3">
-                        <input type="number" required class="form-control" id="price" name="price">
+                        <input type="number" min="0" required class="form-control" id="price" name="price">
                         <div class="input-group-append">
                             <span class="input-group-text">₽</span>
                         </div>
@@ -57,30 +69,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="description">Описание товара</label>
+                    <label for="description">Description</label>
                     <textarea required class="form-control" id="description" name="description"></textarea>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
                         <input type="file" name="file1" id="file1">
-                        <label class="custom-file-label" for="file1">Первая фотография к товару</label>
+                        <label class="custom-file-label" for="file1">First picture</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
                         <input type="file" name="file2" id="file2">
-                        <label class="custom-file-label" for="file2">Вторая фотография к товару</label>
+                        <label class="custom-file-label" for="file2">Second picture</label>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
                         <input type="file" name="file3" id="file3">
-                        <label class="custom-file-label" for="file3">Третья фотография к товару</label>
+                        <label class="custom-file-label" for="file3">Third picture</label>
                     </div>
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}"/>
 
-                <button type="submit" style="width: 100%" class="btn btn-dark">Добавить</button>
+                <button type="submit" style="width: 100%" class="btn btn-dark">Create advert</button>
             </form>
         </div>
     </#if>
@@ -105,7 +117,7 @@
                         <p class="card-text">${advert.price} ₽</p>
                     </div>
                     <div class="card-footer">
-                        Corpus №${advert.corpus}
+                        Corpus ${advert.corpus}
                     </div>
                 </div>
             </a>

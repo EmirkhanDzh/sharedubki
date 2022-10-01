@@ -28,13 +28,9 @@ import java.util.Objects;
 @Controller
 @RequiredArgsConstructor
 public class ImageController {
-
-    private final AdvertController advertController;
     private final UserService userService;
-    private final ImageService imageService;
-    private final ImageRepository imageRepository;
     private final AdvertService advertService;
-
+    private final ImageService imageService;
 
     @GetMapping("/images/{id}")
     private ResponseEntity<?> getImageById(@PathVariable Long id) {
@@ -47,7 +43,7 @@ public class ImageController {
     }
 
     @PostMapping("/images/{id}/delete")
-    private String deleteImage(@PathVariable Long id, @RequestParam Long advertId, Principal principal, Model model) {
+    private String deleteImage(@PathVariable Long id, @RequestParam Long advertId, Principal principal) {
         Advert advert = advertService.getAdvertById(advertId);
         User user = userService.getUserByPrincipal(principal);
         if (imageService.deleteImageFromAdvert(id, advert, user)) {

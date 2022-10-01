@@ -2,6 +2,7 @@
     <!doctype html>
     <html lang="ru">
     <head>
+        <link rel="SHORTCUT ICON" href="/static/images/favicon.png" type="image/png">
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,7 +19,7 @@
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
             <a href="/">
-                <span class="navbar-brand mb-0 h1">Share, Dubki</span>
+                <span class="navbar-brand mb-0 h1"><img src="/static/images/favicon.png" width="24" height="24" class="rounded-circle">  Share, Dubki  <img src="/static/images/favicon.png" width="24" height="24" class="rounded-circle"></span>
             </a>
             <#if user.email??>
                 <div class="dropdown text-end">

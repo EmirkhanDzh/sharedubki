@@ -1,23 +1,14 @@
 package ru.proj.sharedubki.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import ru.proj.sharedubki.enums.Role;
-import ru.proj.sharedubki.model.Image;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.UserRepository;
 
-import javax.annotation.PostConstruct;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;

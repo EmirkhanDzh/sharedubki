@@ -15,6 +15,10 @@ public class UserController {
 
     private final UserService userService;
 
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping("/login")
     public String login(Principal principal, Model model) {
         model.addAttribute("user", userService.getUserByPrincipal(principal));
@@ -48,7 +52,6 @@ public class UserController {
     public String showUserProfile(@PathVariable("user") User user, Model model, Principal principal) {
         model.addAttribute("user", user);
         model.addAttribute("adverts", user.getAdverts());
-        model.addAttribute("user", user);
         model.addAttribute("userByPrincipal", userService.getUserByPrincipal(principal));
         return "user-info";
     }
@@ -58,7 +61,4 @@ public class UserController {
         return "hello";
     }
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 }

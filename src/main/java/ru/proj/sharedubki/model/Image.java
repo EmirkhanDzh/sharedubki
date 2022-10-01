@@ -40,7 +40,6 @@ public class Image {
     @Lob
     @Type(type = "org.hibernate.type.ImageType")
     private byte[] bytesOfImage;
-
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     private Advert advert;
 }

@@ -26,22 +26,29 @@ public class AdvertService {
     private final UserService userService;
     private final AdvertRepository advertRepository;
     private final ImageRepository imageRepository;
-    private final UserRepository userRepository;
 
-    public AdvertService(UserService userService, AdvertRepository advertRepository, ImageRepository imageRepository, UserRepository userRepository) {
+    public AdvertService(UserService userService, AdvertRepository advertRepository, ImageRepository imageRepository) {
         this.userService = userService;
         this.advertRepository = advertRepository;
         this.imageRepository = imageRepository;
-        this.userRepository = userRepository;
     }
 
-    public List<Advert> getAdvertsByTitleAndDescription(String searchWord) {
+    public List<Advert> getAdverts(String searchWord, Integer searchCorpus) {
         List<Advert> adverts = advertRepository.findAll();
-        if(searchWord != null) {
-            String searchWordTrimmed = searchWord.trim().toLowerCase();
-            if (!searchWordTrimmed.isEmpty() && !searchWordTrimmed.isBlank()) {
-                adverts.removeIf(ad -> !ad.getTitle().toLowerCase(Locale.ROOT).contains(searchWordTrimmed.trim()) && !ad.getDescription().toLowerCase().contains(searchWordTrimmed));
-                return adverts;
+        if (searchWord != null || searchCorpus != null) {
+
+            if (searchWord != null && !searchWord.trim().isEmpty()) {
+                String searchWordTrimmed = searchWord.trim().toLowerCase();
+                if (searchCorpus != null) {
+                    adverts.removeIf(ad -> ad.getCorpus() != searchCorpus.intValue() || !ad.getTitle().toLowerCase(Locale.ROOT).contains(searchWordTrimmed) && !ad.getDescription().toLowerCase().contains(searchWordTrimmed));
+                } else {
+                    adverts.removeIf(ad -> !ad.getTitle().toLowerCase(Locale.ROOT).contains(searchWordTrimmed) && !ad.getDescription().toLowerCase().contains(searchWordTrimmed));
+                }
+            }
+            else {
+                if(searchCorpus != null) {
+                    adverts.removeIf(ad -> ad.getCorpus() != searchCorpus.intValue());
+                }
             }
         }
         return adverts;
@@ -76,7 +83,7 @@ public class AdvertService {
         for (int i = 0, j = 0; i < numOfImages; ++i) {
             if (files[i].getSize() != 0) {
                 images[i] = convertFileToImageEntity(files[i]);
-                if(j == 0) {
+                if (j == 0) {
                     images[i].setPreviewImage(true);
                 } else {
                     images[i].setPreviewImage(false);
@@ -104,11 +111,11 @@ public class AdvertService {
             }
         }
         images = advert.getImages();
-        for(int i = 0; i < images.size(); ++i) {
-            if(i == 0){
+        for (int i = 0; i < images.size(); ++i) {
+            if (i == 0) {
                 images.get(i).setPreviewImage(true);
                 advert.setPreviewImageId(images.get(i).getId());
-            }  else {
+            } else {
                 images.get(i).setPreviewImage(false);
             }
         }
@@ -127,7 +134,6 @@ public class AdvertService {
         Advert advertById = getAdvertById(id);
         User user = userService.getUserByPrincipal(principal);
         if (advertById != null && advertFromUser != null) {
-//            advertById.setUser(userService.getUserByPrincipal(principal));
             if (advertById.getUser().getId().equals(user.getId())) {
                 if (!advertById.getTitle().equals(advertFromUser.getTitle())) {
                     advertById.setTitle(advertFromUser.getTitle());

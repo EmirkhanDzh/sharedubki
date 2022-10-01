@@ -40,9 +40,8 @@ public class AdminController {
     }
 
     @GetMapping("/admin/user/{user-id}/edit")
-    public String showUserEdit(@PathVariable("user-id") User user, Model model, Principal principal){
+    public String showUserEdit(@PathVariable("user-id") User user, Model model){
         model.addAttribute("user", user);
-//        model.addAttribute("superAdmin", userService.getUserByPrincipal(principal));
         model.addAttribute("roles", Role.values());
         return "admin-user-role-edit";
     }

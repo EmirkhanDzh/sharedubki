@@ -37,11 +37,11 @@
         </div>
         <div class="form-group">
             <label for="email">User email</label>
-            <input type="email" class="form-control" id="email" required name="email">
+            <input type="email" class="form-control" id="email" required name="email" pattern="[a-z0-9._%+-]+@[e][d][u]+\.+[h][s][e]+\.[r][u]$" placeholder="email@edu.hse.ru">
         </div>
         <div class="form-group">
             <label for="phoneNumber">Phone number</label>
-            <input type="text" class="form-control" id="phoneNumber" required name="phoneNumber">
+            <input type="text" class="form-control" id="phoneNumber" required name="phoneNumber" pattern="[+][7][9][0-9]{9}" placeholder="+79123456789">
         </div>
         <div class="form-group">
             <label for="password">Password</label>
