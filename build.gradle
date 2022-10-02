@@ -4,14 +4,6 @@ plugins {
 	id 'java'
 }
 
-jar {
-	manifest {
-		attributes(
-				'Main-Class': 'ru.proj.sharedubki.ShareDubkiApplication'
-		)
-	}
-}
-
 group = 'ru.proj'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -21,6 +13,7 @@ repositories {
 }
 
 dependencies {
+
 	// lombok
 	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok:1.18.24'
