@@ -7,7 +7,7 @@ plugins {
 jar {
 	manifest {
 		attributes(
-				'Main-Class': 'java.ru.proj.sharedubki.ShareDubkiApplication'
+				'Main-Class': 'main.ru.proj.sharedubki.ShareDubkiApplication'
 		)
 	}
 }
