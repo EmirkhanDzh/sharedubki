@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.proj.sharedubki.enums.Role;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.UserRepository;
-
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;

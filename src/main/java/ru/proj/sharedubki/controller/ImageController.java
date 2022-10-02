@@ -5,25 +5,19 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import ru.proj.sharedubki.model.Advert;
 import ru.proj.sharedubki.model.Image;
 import ru.proj.sharedubki.model.User;
-import ru.proj.sharedubki.repository.AdvertRepository;
-import ru.proj.sharedubki.repository.ImageRepository;
 import ru.proj.sharedubki.service.AdvertService;
 import ru.proj.sharedubki.service.ImageService;
 import ru.proj.sharedubki.service.UserService;
 
 import java.io.ByteArrayInputStream;
 import java.security.Principal;
-import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor

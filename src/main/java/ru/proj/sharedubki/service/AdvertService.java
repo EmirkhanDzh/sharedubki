@@ -8,8 +8,6 @@ import ru.proj.sharedubki.model.Image;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.AdvertRepository;
 import ru.proj.sharedubki.repository.ImageRepository;
-import ru.proj.sharedubki.repository.UserRepository;
-
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
