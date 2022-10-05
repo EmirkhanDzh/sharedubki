@@ -3,6 +3,8 @@ package ru.proj.sharedubki.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.proj.sharedubki.enums.AdvertType;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,5 +74,15 @@ public class Advert {
     public String getStringPrice() {
         String stringPrice = String.valueOf(price);
         return stringPrice;
+    }
+
+    public String getSimpleCategoryName() {
+        AdvertType[] types = AdvertType.values();
+        for (var e : types) {
+            if (e.name().equals(this.category)) {
+                return e.getTypeName();
+            }
+        }
+        return null;
     }
 }
