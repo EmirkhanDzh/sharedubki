@@ -8,6 +8,7 @@ import ru.proj.sharedubki.model.Image;
 import ru.proj.sharedubki.model.User;
 import ru.proj.sharedubki.repository.AdvertRepository;
 import ru.proj.sharedubki.repository.ImageRepository;
+
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Arrays;
@@ -31,8 +32,13 @@ public class AdvertService {
         this.imageRepository = imageRepository;
     }
 
-    public List<Advert> getAdverts(String searchWord, Integer searchCorpus) {
+    public List<Advert> getAdverts(String searchWord, Integer searchCorpus, String searchCategory) {
         List<Advert> adverts = advertRepository.findAll();
+        if (searchCategory != null) {
+            adverts.removeIf(ad -> !ad.getCategory().equals(searchCategory));
+        }
+
+
         if (searchWord != null || searchCorpus != null) {
 
             if (searchWord != null && !searchWord.trim().isEmpty()) {
@@ -42,9 +48,8 @@ public class AdvertService {
                 } else {
                     adverts.removeIf(ad -> !ad.getTitle().toLowerCase(Locale.ROOT).contains(searchWordTrimmed) && !ad.getDescription().toLowerCase().contains(searchWordTrimmed));
                 }
-            }
-            else {
-                if(searchCorpus != null) {
+            } else {
+                if (searchCorpus != null) {
                     adverts.removeIf(ad -> ad.getCorpus() != searchCorpus.intValue());
                 }
             }

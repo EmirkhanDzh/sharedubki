@@ -6,21 +6,21 @@
     <form method="get" action="/">
         <div class="form-row">
             <div class="form-group col-md-2">
-                <label for="category">Category</label>
-                <select id="category" class="form-control" name = "category">
-                    <option value="">Select category</option>
-                    <option value="all">All</option>
-                    <option value="">Products and food</option>
-                    <option value="">Electronics</option>
-                    <option value="">Lost&Found</option>
-                    <option value="">Services</option>
-                    <option value="">Other</option>
+                <label for="searchCategory">Category</label>
+                <select id="searchCategory" class="form-control" name = "searchCategory">
+                    <option value="">All</option>
+                    <option value="PRODUCT_FOOD" <#if searchCategory?? && searchCategory=="PRODUCT_FOOD">selected</#if>>Products and food</option>
+                    <option value="ELECTRONICS" <#if searchCategory?? && searchCategory=="ELECTRONICS">selected</#if>>Electronics</option>
+                    <option value="SERVICE" <#if searchCategory?? && searchCategory=="SERVICE">selected</#if>>Services</option>
+                    <option value="WEAR" <#if searchCategory?? && searchCategory=="WEAR">selected</#if>>Wear</option>
+                    <option value="LOST_AND_FOUND" <#if searchCategory?? && searchCategory=="LOST_AND_FOUND">selected</#if>>Lost&Found</option>
+                    <option value="OTHER" <#if searchCategory?? && searchCategory=="OTHER">selected</#if>>Other</option>
                 </select>
             </div>
             <div class="form-group col-md-2">
                 <label for="searchCorpus">Corpus</label>
                 <select id="searchCorpus" class="form-control" name = "searchCorpus">
-                    <option value="">Select corpus</option>
+                    <option value="">All</option>
                     <option value=1 <#if searchCorpus?? && searchCorpus == 1>selected</#if>>First</option>
                     <option value=2 <#if searchCorpus?? && searchCorpus == 2>selected</#if>>Second</option>
                     <option value=3 <#if searchCorpus?? && searchCorpus == 3>selected</#if>>Third</option>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="corpus">corpus</label>
+                    <label for="corpus">Corpus</label>
                     <select id="corpus" required name="corpus" class="form-control">
                         <option value="">Corpus isn't selected</option>
 
@@ -66,6 +66,18 @@
                         <option value=2>Second</option>
                         <option value=3>Third</option>
 
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" required name="category" class="form-control">
+                        <option value="">Category isn't selected</option>
+                        <option value="PRODUCT_FOOD">Products and food</option>
+                        <option value="ELECTRONICS">Electronics</option>
+                        <option value="SERVICE">Services</option>
+                        <option value="WEAR">Wear</option>
+                        <option value="LOST_AND_FOUND">Lost&Found</option>
+                        <option value="OTHER">Other</option>
                     </select>
                 </div>
                 <div class="form-group">

@@ -51,6 +51,6 @@
         <button type="submit" style="width: 100%" class="btn btn-dark">Sign up</button>
     </form>
     <#if errorMessage??>
-        <h2 style="color: red">${errorMessage}</h2>
+        <div class="form-group"><h3 style="color: red">${errorMessage}</h3></div>
     </#if>
 </@t.template>

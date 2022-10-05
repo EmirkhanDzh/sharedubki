@@ -31,8 +31,8 @@ public class Advert {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "type")
-    private String type;
+    @Column(name = "category")
+    private String category;
 
     @Column(name = "title")
     private String title;

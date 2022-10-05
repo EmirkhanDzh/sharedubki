@@ -37,15 +37,18 @@ public class AdvertController {
     public String adverts(
             @RequestParam(name = "searchWord", required = false) String searchWord,
             @RequestParam(name = "searchCorpus", required = false) Integer searchCorpus,
+            @RequestParam(name = "searchCategory", required = false) String searchCategory,
             Principal principal,
             Model model
     ) {
+        System.err.println("category:" + searchCategory);
         User user = userService.getUserByPrincipal(principal);
-        List<Advert> adverts = advertService.getAdverts(searchWord, searchCorpus);
+        List<Advert> adverts = advertService.getAdverts(searchWord, searchCorpus, searchCategory);
         model.addAttribute("user", user);
         model.addAttribute("adverts", adverts);
         model.addAttribute("searchWord", searchWord);
         model.addAttribute("searchCorpus", searchCorpus);
+        model.addAttribute("searchCategory", searchCategory);
         return "adverts";
     }
 

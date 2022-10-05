@@ -24,7 +24,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="corpus">corpus</label>
+                <label for="corpus">Corpus</label>
                 <select id="corpus" required name="corpus" class="form-control">
                     <option value="">Select corpus</option>
 
@@ -32,6 +32,18 @@
                     <option value=2>Second</option>
                     <option value=3>Third</option>
 
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" required name="category" class="form-control">
+                    <option value="">Category isn't selected</option>
+                    <option value="PRODUCT_FOOD">Products and food</option>
+                    <option value="ELECTRONICS">Electronics</option>
+                    <option value="SERVICE">Services</option>
+                    <option value="WEAR">Wear</option>
+                    <option value="LOST_AND_FOUND">Lost&Found</option>
+                    <option value="OTHER">Other</option>
                 </select>
             </div>
             <div class="form-group">

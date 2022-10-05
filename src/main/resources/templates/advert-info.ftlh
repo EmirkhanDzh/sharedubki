@@ -40,7 +40,9 @@
     </div>
     <hr>
     <p><h1 style="text-align: center">${advert.title} | ${advert.price} ₽</h1></p>
-    <p style="text-align: center">${advert.description}</p>
+    <p style="text-align: center"><i>${advert.description}</i></p>
+    <p style="text-align: center">Corpus <b>№${advert.getCorpus()}</b></p>
+    <p style="text-align: center">Category: <b>${advert.getCategory()}</b></p>
     <p style="text-align: center">Seller phone number: <b>${authorAdvert.phoneNumber}</b></p>
 
     <hr>

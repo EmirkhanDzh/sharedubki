@@ -24,13 +24,13 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public boolean createUser(User user) {
+    public int createUser(User user) {
         String email = user.getEmail();
         String phoneNumber = user.getPhoneNumber();
         if (userRepository.findByEmail(email) != null)
-            return false;
+            return 1;
         if (userRepository.findByPhoneNumber(phoneNumber) != null)
-            return false;
+            return 2;
         
         user.setActive(true);
         // пароль
@@ -38,7 +38,7 @@ public class UserService {
         user.getRoles().add(Role.ROLE_USER);
         userRepository.save(user);
         log.info("saving new user with email: {}", email);
-        return true;
+        return 0;
     }
 
 
@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public void createSuperAdmin() {
-        User user = userRepository.findByEmail("superadmin@gmail.com");
+        User user = userRepository.findByEmail("superadmin@edu.hse.ru");
         boolean userDoesNotExist = user == null;
         boolean userExistsButNotAdmin = false;
         if (!userDoesNotExist) {
@@ -89,8 +89,8 @@ public class UserService {
         if (userDoesNotExist || userExistsButNotAdmin) {
             if (userDoesNotExist) {
                 user = new User(
-                        "superadmin@gmail.com",
-                        "+7 777 000 00 00",
+                        "superadmin@edu.hse.ru",
+                        "+79770000000",
                         "super admin",
                         "1"
                 );

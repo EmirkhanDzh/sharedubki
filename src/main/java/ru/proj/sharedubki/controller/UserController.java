@@ -34,12 +34,17 @@ public class UserController {
     @PostMapping("/registration")
     public String createUser(User user, Model model) {
 
-        if(!userService.createUser(user)) {
-            model.addAttribute("errorMessage", "Пользователь с введенными email : " + user.getEmail() + " или номером телефона : " + user.getPhoneNumber() + " уже существует");
-            return "registration";
+        switch(userService.createUser(user)){
+            case 1: {
+                model.addAttribute("errorMessage", "Пользователь с таким email: " + user.getEmail() + " уже существует!!!");
+                return "registration";
+            }
+            case 2: {
+                model.addAttribute("errorMessage","Пользователь с таким номером телефона: " + user.getPhoneNumber() + " уже существует!!!");
+                return "registration";
+            }
+            default: return "redirect:/login";
         }
-
-        return "redirect:/login";
     }
 
     @GetMapping("/profile")
