@@ -67,4 +67,9 @@ public class UserController {
         return "hello";
     }
 
+    @GetMapping("/author")
+    public String author(Principal principal, Model model) {
+        model.addAttribute("user", userService.getUserByPrincipal(principal));
+        return "author";
+    }
 }

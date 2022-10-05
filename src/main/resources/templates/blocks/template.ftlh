@@ -21,6 +21,9 @@
             <a href="/">
                 <span class="navbar-brand mb-0 h1"><img src="/static/images/favicon.png" width="24" height="24" class="rounded-circle">  Share, Dubki  <img src="/static/images/favicon.png" width="24" height="24" class="rounded-circle"></span>
             </a>
+            <a href="/author" style="text-align: center">
+                <span class="navbar-brand mb-0 h1"><img src="/static/images/fire-logo.png" width="24" height="24" class="rounded-circle">  About author  <img src="/static/images/fire-logo.png" width="24" height="24" class="rounded-circle"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+            </a>
             <#if user.email??>
                 <div class="dropdown text-end">
                     <a href="/profile">
