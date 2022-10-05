@@ -1,1 +1,1 @@
-[ссылка](http://localhost:8080/) на сервис
+[ссылка](https://share-dubki.herokuapp.com/) на сервис
