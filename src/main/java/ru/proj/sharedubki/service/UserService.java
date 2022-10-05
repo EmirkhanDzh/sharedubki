@@ -26,8 +26,12 @@ public class UserService {
 
     public boolean createUser(User user) {
         String email = user.getEmail();
+        String phoneNumber = user.getPhoneNumber();
         if (userRepository.findByEmail(email) != null)
             return false;
+        if (userRepository.findByPhoneNumber(phoneNumber) != null)
+            return false;
+        
         user.setActive(true);
         // пароль
         user.setPassword(passwordEncoder.encode(user.getPassword()));
