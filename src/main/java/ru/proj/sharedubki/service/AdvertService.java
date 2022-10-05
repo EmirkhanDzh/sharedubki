@@ -34,7 +34,8 @@ public class AdvertService {
 
     public List<Advert> getAdverts(String searchWord, Integer searchCorpus, String searchCategory) {
         List<Advert> adverts = advertRepository.findAll();
-        if (searchCategory != null) {
+        System.err.println("searchCategory: " + searchCategory == null ? "length: " + searchCategory.length(): "is nul....");
+        if (searchCategory != null && !searchCategory.isEmpty() && !searchCategory.isBlank()) {
             adverts.removeIf(ad -> !ad.getCategory().equals(searchCategory));
         }
 
