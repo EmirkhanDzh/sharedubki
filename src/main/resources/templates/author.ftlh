@@ -9,9 +9,11 @@
         <br>
         <h2><i>Dzhaparov Emirkhan</i></h2>
         <br>
-        <p><b>HSE Faculty of Computer Science | ВШЭ Факультет Компьютерных Наук</b></p>
-        <p><b>Software engineer | Программный инженер</b></p>
-        <p><b>emirdzhapar@gmail.com</b></p>
+        <div class="text-info">
+            <p>HSE Faculty of Computer Science | ВШЭ Факультет Компьютерных Наук</p>
+            <p>Software engineer | Программный инженер</p>
+            <p>emirdzhapar@gmail.com</p>
+        </div>
     </div>
     <br>
     <hr>
